@@ -17,6 +17,11 @@ public class Order {
     @JoinColumn(name="MEMBER_ID")
     private Member member;
 
+    @OneToOne
+    @JoinColumn(name="DELIVERY_ID")
+    private Delivery delivery;
+
+
     @OneToMany(mappedBy = "order")
     private List<OrderItem> orderItems=new ArrayList<>();
 
@@ -57,6 +62,7 @@ public class Order {
         this.status = status;
     }
 
+    //연관관계 편의 메서드) 양쪽 엔티티에 값을 넣어줘야 안전함.
     public void addOrderItem(OrderItem orderItem) {
         orderItems.add(orderItem);
         orderItem.setOrder(this);
