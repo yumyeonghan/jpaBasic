@@ -4,6 +4,8 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static javax.persistence.FetchType.LAZY;
+
 @Entity
 public class Category {
 
@@ -13,7 +15,7 @@ public class Category {
     private String  name;
 
     //카테고리 부모를 만들어 서로 맵핑
-    @ManyToOne
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name="PARENT_ID")
     private Category parent;
 

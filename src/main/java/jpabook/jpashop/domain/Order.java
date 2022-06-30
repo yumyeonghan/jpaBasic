@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import static javax.persistence.FetchType.LAZY;
+
 @Entity
 @Table(name="ORDERS")
 public class Order {
@@ -13,16 +15,16 @@ public class Order {
     @Column(name="ORDER_ID")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name="MEMBER_ID")
     private Member member;
 
-    @OneToOne
+    @OneToOne(fetch = LAZY, cascade = CascadeType.ALL)//주문을 생성하면 자동으로 배달도 생성
     @JoinColumn(name="DELIVERY_ID")
     private Delivery delivery;
 
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)//주문을 생성하면 자동으로 주문아이템도 생성
     private List<OrderItem> orderItems=new ArrayList<>();
 
     private LocalDateTime orderDate;
